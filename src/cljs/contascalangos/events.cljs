@@ -16,18 +16,11 @@
    (assoc db :active-panel active-panel)))
 
 (re-frame/reg-event-db
-:adicionar 
-(fn [coeffects event]  
+:adicionar
+(fn [coeffects event]
   (let [db (:db coeffects)
-  	    novo-valor (:tmp-nova db)
+  	    novo-valor (second event)
   	    itens (:orcamento db)]
   	    {:db (assoc db :orcamento (cons novo-valor itens))}
   	)
  ))
-
-(re-frame/reg-event-db
-:tmp-nova
-(fn [coeffects event]
-  (let [db (:db coeffects)]
-     {:db (assoc db :tmp-nova (second event))}
-  	    )) ) 

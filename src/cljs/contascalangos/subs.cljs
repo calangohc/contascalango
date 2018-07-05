@@ -7,8 +7,8 @@
  (fn [db]
    (:name db)))
 
-(re-frame/reg-sub 
-::orc 
+(re-frame/reg-sub
+::orc
 (fn [db] (:orcamento db))
 )
 
@@ -16,7 +16,3 @@
  ::active-panel
  (fn [db _]
    (:active-panel db)))
-
-(re-frame/reg-sub
-::tmp-nova
-(fn [db] (:tmp-nova db)))

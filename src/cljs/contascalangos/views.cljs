@@ -9,36 +9,46 @@
 ;; home
 
 (defn home-panel []
-  (let [name (re-frame/subscribe [::subs/name]) 
-        orcamento (re-frame/subscribe [::subs/orc])
-        nova (re-frame/subscribe [::subs/tmp-nova])]
-    [:div
-     [:h1 (str "Olá Calangos do " @name)]
+  (let [name (re-frame/subscribe [::subs/name])
+        orcamento (re-frame/subscribe [::subs/orc]) ]
+    (r/with-let [nova (r/atom  0)]
+      [:div
+       [:h2 (str @name)]
 
-     [:div 
-       [:ul
-         (for [item @orcamento] [:li item])
-       ]
-     ]
+       [:div
+        [:table
+         [:tr [:td "Receita"] [:td "Gasta"]]
 
-     [:div (apply + @orcamento)]
+         (for [item @orcamento]
+           (if (< 0 item)
+             [:tr
+              [:td  item] [:td] ]
+             [:tr
+              [:td]
+              [:td
+               [:span {:class "negative"} item]]]))
+         ]
+        ]
 
-     [:div
+
+       [:div [:h3 "Total : " (apply + @orcamento)]]
+
+       [:div
         [:input {:type "text"
-         :value @nova
-         :on-change #(re-frame/dispatch [:tmp-nova (-> % .-target .-value)] )
-          }]
+                 :value @nova
+                 :on-change #(reset! nova (-> % .-target .-value))
+                 }]
 
-        [:button {:on-click #(re-frame/dispatch [:adicionar ])} "Adicionar" ]
+        [:button {:on-click #(re-frame/dispatch [:adicionar (int @nova)])} "Adicionar" ]
 
-     ]
+        ]
 
 
-     [:div
-      [:a {:href "#/about"}
-       "go to About Page"]]
+       [:div
+        [:a {:href "#/about"}
+         "go to About Page"]]
 
-     ]))
+       ])))
 
 
 ;; about
