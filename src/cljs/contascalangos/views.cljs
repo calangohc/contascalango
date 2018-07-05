@@ -2,19 +2,42 @@
   (:require
    [re-frame.core :as re-frame]
    [contascalangos.subs :as subs]
+   [reagent.core :as r]
    ))
 
 
 ;; home
 
 (defn home-panel []
-  (let [name (re-frame/subscribe [::subs/name])]
+  (let [name (re-frame/subscribe [::subs/name]) 
+        orcamento (re-frame/subscribe [::subs/orc])
+        nova (re-frame/subscribe [::subs/tmp-nova])]
     [:div
-     [:h1 (str "Hello from " @name ". This is the Home Page.")]
+     [:h1 (str "Olá Calangos do " @name)]
+
+     [:div 
+       [:ul
+         (for [item @orcamento] [:li item])
+       ]
+     ]
+
+     [:div (apply + @orcamento)]
+
+     [:div
+        [:input {:type "text"
+         :value @nova
+         :on-change #(re-frame/dispatch [:tmp-nova (-> % .-target .-value)] )
+          }]
+
+        [:button {:on-click #(re-frame/dispatch [:adicionar ])} "Adicionar" ]
+
+     ]
+
 
      [:div
       [:a {:href "#/about"}
        "go to About Page"]]
+
      ]))
 
 
