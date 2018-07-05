@@ -16,17 +16,17 @@
        [:h2 (str @name)]
 
        [:div
-        [:table
-         [:tr [:td "Receita"] [:td "Gasta"]]
+        [:table [:tbody
+                 [:tr [:td "Receita"] [:td "Gasta"]]
 
-         (for [item @orcamento]
-           (if (< 0 item)
-             [:tr
-              [:td  item] [:td] ]
-             [:tr
-              [:td]
-              [:td
-               [:span {:class "negative"} item]]]))
+                 (for [item @orcamento]
+                   (if (< 0 item)
+                     [:tr
+                      [:td  item] [:td] ]
+                     [:tr
+                      [:td]
+                      [:td
+                       [:span {:class "negative"} item]]]))]
          ]
         ]
 

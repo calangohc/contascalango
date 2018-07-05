@@ -9,7 +9,7 @@
 
 (re-frame/reg-sub
 ::orc
-(fn [db] (:orcamento db))
+(fn [db _] (:orcamento db))
 )
 
 (re-frame/reg-sub

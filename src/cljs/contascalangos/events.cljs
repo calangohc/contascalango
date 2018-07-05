@@ -17,10 +17,7 @@
 
 (re-frame/reg-event-db
 :adicionar
-(fn [coeffects event]
-  (let [db (:db coeffects)
-  	    novo-valor (second event)
-  	    itens (:orcamento db)]
-  	    {:db (assoc db :orcamento (cons novo-valor itens))}
-  	)
- ))
+(fn [db event]
+  (let [novo-valor (second event)
+        itens (:orcamento db)]
+    {:db (assoc db :orcamento (cons novo-valor itens))} )))
