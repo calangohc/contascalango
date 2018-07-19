@@ -20,4 +20,4 @@
 (fn [db event]
   (let [novo-valor (second event)
         itens (:orcamento db)]
-    {:db (assoc db :orcamento (cons novo-valor itens))} )))
+    (assoc db :orcamento (cons novo-valor itens)) )))
